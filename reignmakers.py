@@ -27,4 +27,7 @@ class Reignmakers:
             except:
                 f'error retrieving: {p["merchandiseName"]}'
 
+        # sort clean_players by name
+        clean_players.sort(key=lambda x: x["floor"])
+
         return clean_players
