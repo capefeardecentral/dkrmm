@@ -1,5 +1,7 @@
 FROM python:3.10.5-slim
 
+ENV PRODUCTION=true
+
 RUN mkdir /app
 COPY . /app
 WORKDIR /app

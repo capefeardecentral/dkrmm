@@ -2,7 +2,7 @@ import requests
 
 class Reignmakers:
     def __init__(self):
-        self.marketplace_url = "https://marketplace.draftkings.com/api/marketplaces/v1/collections/5eae2563006d4fe0ae1405a31567c60c/merchandise?selectedValueIdsByAttributeId={18:[62,63,64]}&limit=5000&&resultType=Collectible"
+        self.marketplace_url = "https://marketplace.draftkings.com/api/marketplaces/v1/collections/5eae2563006d4fe0ae1405a31567c60c/merchandise?selectedValueIdsByAttributeId={18:[62,63,64,68]}&limit=5000&&resultType=Collectible"
         self.card_root_url = "https://marketplace.draftkings.com/api/marketplaces/v1/collectibles/"
 
     def get_marketplace(self):
