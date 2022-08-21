@@ -7,7 +7,7 @@ export default function TransactionsCard(props) {
   const [open, setOpen] = useState(true)
 
   useEffect(() => {
-    fetch(`https://dkrmm.cfd/api/transactions/${props.merchandiseKey}`)
+    fetch(`https://api.dkrmm.cfd/api/transactions/${props.merchandiseKey}`)
     .then(res => res.json()).then(data => {
       setTransactions(data)
     }).catch(err => {
