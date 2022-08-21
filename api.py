@@ -13,6 +13,13 @@ class API():
             else:
                 return self._corsify_actual_reponse(make_response(self.rm.get_marketplace()))
 
+        @self.app.route('/api/transactions/<merchandise_key>', methods=['GET'])
+        def transactions(merchandise_key):
+            if request.method == "OPTIONS":
+                return self._build_cors_preflight_response()
+            else:
+                return self._corsify_actual_reponse(make_response(self.rm.get_transactions(merchandise_key)))
+
     def _build_cors_preflight_response(self):
         response = make_response()
         response.headers.add('Access-Control-Allow-Origin', '*')
