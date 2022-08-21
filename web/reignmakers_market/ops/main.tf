@@ -26,6 +26,6 @@ module "rmm" {
   version = "0.0.18"
   name_prefix="rmm"
   website_bucket_force_destroy = true
-  website_domain_name = "rmm.xyz"
+  website_domain_name = "dkrmm.cfd"
 }
 

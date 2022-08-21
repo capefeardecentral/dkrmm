@@ -7,17 +7,53 @@ const Home = () => {
 
   const [market, setMarket] = useState('')
   const [marketView, setMarketView] = useState('')
+  const [currentPosition, setCurrentPosition] = useState('')
+  const [currentRarity, setCurrentRarity] = useState('')
 
   const rarities = ["Core", "Rare", "Elite", "Legendary", "Reignmaker"]
   const positions = ["QB", "RB", "WR", "TE"]
+  const tiers = ["Skill Starters", "Role Players", "QB1"]
 
   const filterMarketView = (criteria, target) => {
+    if (currentRarity) {
+      let newView = market.filter(player => player[criteria] === target && player.rarity === currentRarity)
+      setMarketView(newView)
+      setCurrentPosition(target)
+      return
+    }
     let newView = market.filter(player => player[criteria] === target)
     setMarketView(newView)
+    setCurrentPosition(target)
+    setCurrentRarity("")
+  }
+
+  const filterMarketViewRarity = (criteria, target) => {
+    if (currentRarity) {
+      if (currentPosition) {
+        let targetKey = positions.includes(currentPosition) ? "position" : "tier"
+        let newView = market.filter(player => player.rarity === target && player[targetKey] === currentPosition)
+        setMarketView(newView)
+        setCurrentRarity(target)
+        return
+      }
+      let newView = market.filter(player => player.rarity === target)
+      setMarketView(newView)
+      setCurrentRarity(target)
+      return
+    }
+    let newView = marketView.filter(player => player.rarity === target)
+    setMarketView(newView)
+    setCurrentRarity(target)
+  }
+
+  const resetFilters = (criteria, target) => {
+    setMarketView(market)
+    setCurrentPosition('')
+    setCurrentRarity('')
   }
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/marketplace')
+    fetch('https://api.dkrmm.cfd/api/marketplace')
     .then(res => res.json()).then(data => {
       setMarket(data)
       setMarketView(data)
@@ -39,9 +75,15 @@ const Home = () => {
       </header>
 
       <main className="p-5">
-        <Filter options={rarities} criteria="rarity" handler={filterMarketView} />
         <Filter options={positions} criteria="position" handler={filterMarketView} />
-        <div className="grid grid-cols-4 gap-4 place-content-center w-full">
+        <Filter options={tiers} criteria="tier" handler={filterMarketView} />
+        <div>
+          <Filter options={rarities} criteria="tiers" handler={filterMarketViewRarity} />
+        </div>
+        <div>
+          <Filter options={["reset filters"]} criteria="" handler={resetFilters} />
+        </div>
+        <div className="grid my-5 grid-cols-4 gap-4 place-content-center w-full">
           {marketView && marketView.map(item => (
             <PlayerCard tier={item.rarity} position={item.position} key={item.id} name={item.name} floor={item.floor} />
             ))}
