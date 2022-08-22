@@ -86,11 +86,7 @@ const Home = () => {
         <div className="grid my-5 grid-cols-3 gap-1 md:grid-cols-4 md:gap-4 place-content-center w-full">
           {marketView && marketView.map(item => (
             <PlayerCard
-              tier={item.rarity}
-              position={item.position}
-              key={item.id} name={item.name}
-              floor={item.floor}
-              merchandiseKey={item.merchandiseKey}
+              item={item}
             />
             ))}
         </div>
