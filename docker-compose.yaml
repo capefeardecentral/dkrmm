@@ -1,0 +1,25 @@
+---
+version: '3'
+
+services:
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    image: dkrmm
+    container_name: api
+    networks:
+      - net
+    ports:
+      - "5000:5000"
+    restart: always
+  cache:
+    image: redis:7-alpine
+    container_name: cache
+    networks:
+      - net
+    ports:
+        - "6379:6379"
+    restart: always
+networks:
+  net:

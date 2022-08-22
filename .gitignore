@@ -4,3 +4,4 @@ __pycache__
 **/terraform.tfstate*
 **/.terraform.lock*
 node_modules
+pgdata

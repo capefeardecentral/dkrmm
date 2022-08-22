@@ -1,2 +1,4 @@
 Flask==2.2.2
+pandas==1.4.3
+redis==4.3.4
 requests==2.25.1

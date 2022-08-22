@@ -1,9 +1,11 @@
 import reignmakers
-from flask import Flask, request, make_response
+import rankings
+from flask import Flask, request, make_response, jsonify
 
 class API():
     def __init__(self):
         self.rm = reignmakers.Reignmakers()
+        self.rankings = rankings.Rankings()
         self.app = Flask(__name__)
 
         @self.app.route('/api/marketplace', methods=['GET'])
@@ -20,6 +22,13 @@ class API():
             else:
                 return self._corsify_actual_reponse(make_response(self.rm.get_transactions(merchandise_key)))
 
+        @self.app.route('/api/rankings', methods=['GET'])
+        def get_rankings():
+            if request.method == "OPTIONS":
+                return self._build_cors_preflight_response()
+            else:
+                return self._corsify_actual_reponse(make_response(self.rankings.get_rankings()))
+
     def _build_cors_preflight_response(self):
         response = make_response()
         response.headers.add('Access-Control-Allow-Origin', '*')
@@ -30,4 +39,5 @@ class API():
 
     def _corsify_actual_reponse(self, response):
         response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Content-Type', 'application/json')
         return response
