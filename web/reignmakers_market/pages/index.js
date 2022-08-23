@@ -13,7 +13,7 @@ const Home = () => {
 
   const rarities = ["Core", "Rare", "Elite", "Legendary", "Reignmaker"]
   const positions = ["QB", "RB", "WR", "TE"]
-  const tiers = ["Skill Starters", "Role Players", "QB1"]
+  const tiers = ["Skill Starters", "Role Players", "QB1", "Rookies - Offense"]
 
   const filterMarketView = (criteria, target) => {
     if (currentRarity) {
