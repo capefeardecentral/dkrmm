@@ -80,7 +80,7 @@ const Home = () => {
         <h1 className="py-5 px-5 text-3xl font-light">DKRMM.CFD</h1>
       </header>
 
-      <main className="p-5">
+      <div className="p-5">
         <Filter options={positions} criteria="position" handler={filterMarketView} />
         <Filter options={tiers} criteria="tier" handler={filterMarketView} />
         <div>
@@ -89,7 +89,10 @@ const Home = () => {
         <div>
           <Filter options={["reset filters"]} criteria="" handler={resetFilters} />
         </div>
-        <div className="grid my-5 grid-cols-3 gap-1 md:grid-cols-4 md:gap-4 place-content-center w-full">
+      </div>
+
+      <main className="p-5 md:mx-20">
+        <div className="grid my-5 grid-cols-3 gap-3 md:grid-cols-4 md:gap-4 place-content-center w-full">
           {marketView && marketView.map(item => (
             <PlayerCard
               item={item}

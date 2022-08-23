@@ -57,10 +57,10 @@ export default function TransactionsCard(props) {
                       <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
                         {props.name}
                       </Dialog.Title>
-                      <h1>{props.rarity}</h1>
+                      <h1>{props.set}</h1>
                       <div className="mt-2">
                         {transactions.map(transaction => (
-                          <div className={`${props.borderClass} border-2`} key={transaction.id}>
+                          <div className={`${props.borderClass} border-2 my-1 rounded`} key={transaction.id}>
                             <p className="py-2">{formatDate(transaction.transactionDate)}</p>
                             <p className="py-2">{transaction.amount}</p>
                           </div>
