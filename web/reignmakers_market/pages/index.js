@@ -6,6 +6,7 @@ import PlayerCard from "../components/PlayerCard";
 const Home = () => {
 
   const [market, setMarket] = useState('')
+  const [rankings, setRankings] = useState('')
   const [marketView, setMarketView] = useState('')
   const [currentPosition, setCurrentPosition] = useState('')
   const [currentRarity, setCurrentRarity] = useState('')
@@ -60,8 +61,13 @@ const Home = () => {
     }).catch(err => {
       console.log(err)
     })
+    fetch('https://api.dkrmm.cfd/api/rankings')
+      .then(res => res.json()).then(data => {
+      setRankings(data)
+    }).catch(err => {
+      console.log(err)
+    })
   }, [])
-
 
   return (
     <div className="min-h-screen flex-col  py-2">
@@ -87,6 +93,7 @@ const Home = () => {
           {marketView && marketView.map(item => (
             <PlayerCard
               item={item}
+              ranking={rankings[item.dkPlayerNumber]}
             />
             ))}
         </div>

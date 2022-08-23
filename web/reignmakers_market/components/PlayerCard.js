@@ -41,6 +41,7 @@ export default function PlayerCard(props) {
       <p className="text-sm md:text-lg">{props.item.position}</p>
       <p className="text-sm md:text-lg mb-1">${props.item.floor}</p>
       <p className="text-sm md:text-lg mb-1">{props.item.set}</p>
+      <p className="text-sm font-light mb-1">{props.ranking}</p>
       {props.item.superstar === "Yes" && <p className="font-bold text-xs mb-1">superstar</p>}
       <button type="button"
       className="mt-auto inline-flex mx-auto items-center my-2 px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
