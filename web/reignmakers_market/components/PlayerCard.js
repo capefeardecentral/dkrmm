@@ -29,14 +29,14 @@ export default function PlayerCard(props) {
     }
   }
 
-  const openTransactionModal = () => {
+  const toggleTransactionModal = () => {
     return (
-      setShowModal(true)
+      setShowModal(false)
     )
   }
 
   return (
-    <div className={`border-4 ${borderClass} text-center flex flex-col`} key={props.key}>
+    <div className={`border-4 rounded-2xl shadow md:shadow-2xl  shadow-gray-400 ${borderClass} text-center flex flex-col`} key={props.key}>
       <h1 className="text-sm font-bold md:text-lg">{props.item.name}</h1>
       <p className="text-sm md:text-lg">{props.item.position}</p>
       <p className="text-sm md:text-lg mb-1">${props.item.floor}</p>
@@ -45,11 +45,11 @@ export default function PlayerCard(props) {
       {props.item.superstar === "Yes" && <p className="font-bold text-xs mb-1">superstar</p>}
       <button type="button"
       className="mt-auto inline-flex mx-auto items-center my-2 px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-      onClick={openTransactionModal}>
+      onClick={() => setShowModal(true)}>
         sales
       </button>
       {showModal &&
-        <TransactionsCard borderClass={borderClass} merchandiseKey={props.item.merchandiseKey} name={props.item.name} rarity={props.item.tier}/>
+        <TransactionsCard removeModal={toggleTransactionModal} borderClass={borderClass} merchandiseKey={props.item.merchandiseKey} name={props.item.name} rarity={props.item.tier}/>
       }
     </div>
   )
