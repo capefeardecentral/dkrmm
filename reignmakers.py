@@ -10,23 +10,61 @@ class Reignmakers:
         mp = requests.get(self.marketplace_url, headers={"Accept": "application/json"})
         clean_players = []
         for p in mp.json()["merchandise"]:
+            values = {}
+            for k in p["collectionAttributes"]:
+                    match k["displayName"]:
+                        case "Athlete Name":
+                            values["name"] = k["value"]
+                            continue
+                        case "Position":
+                            values["position"] = k["value"]
+                            continue
+                        case "Edition Tier":
+                            values["tier"] = k["value"]
+                            continue
+                        case "PlayerDkId":
+                            values["dkPlayerNumber"] = k["value"]
+                            continue
+                        case "Position":
+                            values["position"] = k["value"]
+                            continue
+                        case "Rarity Tier":
+                            values["rarity"] = k["value"]
+                            continue
+                        case "Rookie Status":
+                            values["rookie"] = k["value"]
+                            continue
+                        case "Series":
+                            values["series"] = k["value"]
+                            continue
+                        case "Set Name":
+                            values["set"] = k["value"]
+                            continue
+                        case "SuperStar Status":
+                            values["superstar"] = k["value"]
+                            continue
+                        case _:
+                            continue
+
+            print(values)
+
             try:
                 clean_player = {
-                    "name": p["collectionAttributes"][0]["value"],
+                    "name": values["name"],
                     "floor": p["lowestListedEditionPrice"],
-                    "tier": p["collectionAttributes"][1]["value"],
-                    "dkPlayerNumber": p["collectionAttributes"][2]["value"],
-                    "position": p["collectionAttributes"][3]["value"],
-                    "rarity": p["collectionAttributes"][4]["value"],
-                    "rookie": p["collectionAttributes"][5]["value"],
-                    "series": p["collectionAttributes"][6]["value"],
-                    "set": p["collectionAttributes"][7]["value"],
-                    "superstar": p["collectionAttributes"][8]["value"],
+                    "tier": values["tier"],
+                    "dkPlayerNumber": values["dkPlayerNumber"],
+                    "position": values["position"],
+                    "rarity": values["rarity"],
+                    "rookie": values["rookie"],
+                    "series": values["series"],
+                    "set": values["set"],
+                    "superstar": values["superstar"],
                     "merchandiseKey": p["merchandiseKey"]
                    }
                 clean_players.append(clean_player)
-            except:
-                print(f'error retrieving: {p["merchandiseName"]}')
+            except Exception as e:
+                print(f'error retrieving: {p["merchandiseName"]}: {e}')
 
         # sort clean_players by name
         clean_players.sort(key=lambda x: x["floor"])
