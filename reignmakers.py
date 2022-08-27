@@ -12,39 +12,39 @@ class Reignmakers:
         for p in mp.json()["merchandise"]:
             values = {}
             for k in p["collectionAttributes"]:
-                    match k["displayName"]:
-                        case "Athlete Name":
-                            values["name"] = k["value"]
-                            continue
-                        case "Position":
-                            values["position"] = k["value"]
-                            continue
-                        case "Edition Tier":
-                            values["tier"] = k["value"]
-                            continue
-                        case "PlayerDkId":
-                            values["dkPlayerNumber"] = k["value"]
-                            continue
-                        case "Position":
-                            values["position"] = k["value"]
-                            continue
-                        case "Rarity Tier":
-                            values["rarity"] = k["value"]
-                            continue
-                        case "Rookie Status":
-                            values["rookie"] = k["value"]
-                            continue
-                        case "Series":
-                            values["series"] = k["value"]
-                            continue
-                        case "Set Name":
-                            values["set"] = k["value"]
-                            continue
-                        case "SuperStar Status":
-                            values["superstar"] = k["value"]
-                            continue
-                        case _:
-                            continue
+                match k["displayName"]:
+                    case "Athlete Name":
+                        values["name"] = k["value"]
+                        continue
+                    case "Position":
+                        values["position"] = k["value"]
+                        continue
+                    case "Edition Tier":
+                        values["tier"] = k["value"]
+                        continue
+                    case "PlayerDkId":
+                        values["dkPlayerNumber"] = k["value"]
+                        continue
+                    case "Position":
+                        values["position"] = k["value"]
+                        continue
+                    case "Rarity Tier":
+                        values["rarity"] = k["value"]
+                        continue
+                    case "Rookie Status":
+                        values["rookie"] = k["value"]
+                        continue
+                    case "Series":
+                        values["series"] = k["value"]
+                        continue
+                    case "Set Name":
+                        values["set"] = k["value"]
+                        continue
+                    case "SuperStar Status":
+                        values["superstar"] = k["value"]
+                        continue
+                    case _:
+                        continue
 
             print(values)
 
@@ -61,7 +61,7 @@ class Reignmakers:
                     "set": values["set"],
                     "superstar": values["superstar"],
                     "merchandiseKey": p["merchandiseKey"]
-                   }
+                }
                 clean_players.append(clean_player)
             except Exception as e:
                 print(f'error retrieving: {p["merchandiseName"]}: {e}')
@@ -72,6 +72,8 @@ class Reignmakers:
         return clean_players
 
     def get_transactions(self, player_key):
-        transactions = requests.get(self.card_root_url + player_key + "/transactions", headers={"Accept": "application/json"})
-        clean_transactions = [transaction for transaction in transactions.json()["transactions"] if transaction["transactionType"] == "SecondaryPurchaseConfirmation"]
+        transactions = requests.get(self.card_root_url + player_key + "/transactions",
+                                    headers={"Accept": "application/json"})
+        clean_transactions = [transaction for transaction in transactions.json()["transactions"] if
+                              transaction["transactionType"] == "SecondaryPurchaseConfirmation"]
         return clean_transactions

@@ -43,11 +43,18 @@ export default function PlayerCard(props) {
       <p className="text-sm md:text-lg mb-1">{props.item.set}</p>
       <p className="text-sm font-light mb-1">{props.ranking}</p>
       {props.item.superstar === "Yes" && <p className="font-bold text-xs mb-1">superstar</p>}
-      <button type="button"
-      className="mt-auto inline-flex mx-auto items-center my-2 px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-      onClick={() => setShowModal(true)}>
-        sales
-      </button>
+      <div className="mx-auto">
+        <button type="button"
+                className="mt-auto inline-flex mx-3 items-center my-2 px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                onClick={() => setShowModal(true)}>
+          sales
+        </button>
+        <button type="button"
+        className="mt-auto inline-flex mx-3 items-center my-2 px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          <a target="none" href={`https://marketplace.draftkings.com/listings/collectibles/${props.item.merchandiseKey}`}>store</a>
+        </button>
+      </div>
       {showModal &&
         <TransactionsCard removeModal={toggleTransactionModal} borderClass={borderClass} merchandiseKey={props.item.merchandiseKey} name={props.item.name} set={props.item.set}/>
       }
