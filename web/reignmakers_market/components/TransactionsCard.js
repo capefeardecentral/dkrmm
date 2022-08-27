@@ -1,5 +1,17 @@
 import {useEffect, useState, Fragment} from "react";
 import {Dialog, Transition} from "@headlessui/react";
+import { Line } from "react-chartjs-2";
+
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 
 export default function TransactionsCard(props) {
 
@@ -15,15 +27,56 @@ export default function TransactionsCard(props) {
     })
   }, [])
 
-  const formatDate = (date) => {
+  const formatDate = (date, trimmed = false) => {
     let newDate = new Date(date)
-    return newDate.toLocaleString()
+    if (trimmed) {
+      return newDate.toLocaleString().split(",")[0]
+    } else {
+      return newDate.toLocaleString()
+    }
   }
 
   const toggleModal = () => {
     setOpen(false)
     props.removeModal()
   }
+
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Latest Transactions',
+      },
+    },
+  };
+
+  const labels = transactions.map(transaction => formatDate(transaction.transactionDate, true))
+
+  const data = {
+     labels,
+     datasets: [
+       {
+         label: 'sale price',
+         data: transactions.map((transaction) => transaction.amount),
+         borderColor: 'rgb(255, 99, 132)',
+         backgroundColor: 'rgba(255, 99, 132, 0.5)',
+       },
+     ],
+   }
 
   return (
       <Transition.Root show={open} as={Fragment}>
@@ -58,6 +111,7 @@ export default function TransactionsCard(props) {
                         {props.name}
                       </Dialog.Title>
                       <h1>{props.set}</h1>
+                      <Line options={options} data={data} />
                       <div className="mt-2">
                         {transactions.map(transaction => (
                           <div className={`${props.borderClass} border-2 my-1 rounded`} key={transaction.id}>
