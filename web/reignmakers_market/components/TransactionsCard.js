@@ -64,14 +64,14 @@ export default function TransactionsCard(props) {
     },
   };
 
-  const labels = transactions.map(transaction => formatDate(transaction.transactionDate, true))
+  const labels = transactions.map(transaction => formatDate(transaction.transactionDate, true)).reverse()
 
   const data = {
      labels,
      datasets: [
        {
          label: 'sale price',
-         data: transactions.map((transaction) => transaction.amount),
+         data: transactions.map((transaction) => transaction.amount).reverse(),
          borderColor: 'rgb(255, 99, 132)',
          backgroundColor: 'rgba(255, 99, 132, 0.5)',
        },
