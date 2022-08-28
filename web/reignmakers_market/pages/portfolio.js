@@ -12,7 +12,7 @@ const Portfolio = () => {
 
   useEffect(() => {
     if (portfolio.length > 1) {
-      fetch(`https://dkrmm.cfd/api/portfolio/${portfolio}`)
+      fetch(`https://api.dkrmm.cfd/api/portfolio/${portfolio}`)
         .then(res => res.json()).then(data => {
         setPortfolioValues(data)
       }).catch(err => {
