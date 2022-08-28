@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { useState, useEffect } from 'react'
 import Filter from '../components/Filter';
 import PlayerCard from "../components/PlayerCard";
+import Header from '../components/Header'
 
 const Home = () => {
 
@@ -76,9 +77,7 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header>
-        <h1 className="py-5 px-5 text-3xl font-light">DKRMM.CFD</h1>
-      </header>
+      <Header />
 
       <div className="p-5">
         <Filter options={positions} criteria="position" handler={filterMarketView} />
