@@ -29,6 +29,13 @@ class API():
             else:
                 return self._corsify_actual_reponse(make_response(self.rankings.get_rankings()))
 
+        @self.app.route('/api/portfolio/<user_key>', methods=['GET'])
+        def get_portfolio(user_key):
+            if request.method == "OPTIONS":
+                return self._build_cors_preflight_response()
+            else:
+                return self._corsify_actual_reponse(make_response(self.rm.get_portfolio(user_key)))
+
     def _build_cors_preflight_response(self):
         response = make_response()
         response.headers.add('Access-Control-Allow-Origin', '*')
