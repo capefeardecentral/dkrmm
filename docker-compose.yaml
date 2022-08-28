@@ -8,6 +8,8 @@ services:
       context: .
     image: dkrmm
     container_name: api
+    environment:
+      - PRODUCTION=true
     networks:
       - net
     ports:
